@@ -1,11 +1,11 @@
 package ua.nagib;
 
+import ua.nagib.GUI.Frame;
+
 public class Launcher {
 
 	public static void main(String[] args) {
-			
-		System.out.println("amahasla");
-		System.out.println("priom");
+		Frame frame = new Frame();
 	}
 
 }
