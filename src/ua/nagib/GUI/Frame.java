@@ -23,20 +23,20 @@ public class Frame extends JFrame {
 
 	public Frame() {
 
-		JFrame window = new JFrame("Converter");
-		window.setBounds(100, 100, 400, 250);
-		window.setVisible(true);
-		window.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		window.setLayout(null);
-		window.setResizable(false);
+		setTitle("Converter");
+		setBounds(100, 100, 400, 250);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLayout(null);
+		setResizable(false);
 
-		window.add(firstData);
-		window.add(secondData);
+		add(firstData);
+		add(secondData);
 		// window.add(type);
-		window.add(swap);
-		window.add(calc);
-		window.add(firstField);
-		window.add(secondField);
+		add(swap);
+		add(calc);
+		add(firstField);
+		add(secondField);
 
 		firstData.setBounds(25, 100, 125, 25);
 		secondData.setBounds(250, 100, 125, 25);
@@ -47,19 +47,19 @@ public class Frame extends JFrame {
 
 		calc.setBounds(140, 150, 115, 25);
 
-		firstData.addItem("grivni");
-		firstData.addItem("baksi");
-		firstData.addItem("tugrik");
-		secondData.addItem("grivni");
-		secondData.addItem("baksi");
-		secondData.addItem("tugrik");
+		firstData.addItem("Gryvnias");
+		firstData.addItem("Dollars");
+		firstData.addItem("Tugrik");
+		secondData.addItem("Gryvnias");
+		secondData.addItem("Dollars");
+		secondData.addItem("Tugrik");
 
 		// fill comboBoxes
 
-		swap.addMouseListener(new MouseAdapter() {
+		swap.addMouseListener(new MouseAdapter(){
 			int tempFirst;
 			int tempSecond;
-			public void mouseClicked(MouseEvent event) {
+			public void mouseClicked(MouseEvent event){
 
 				tempFirst = firstData.getSelectedIndex();
 				tempSecond = secondData.getSelectedIndex();
@@ -69,6 +69,11 @@ public class Frame extends JFrame {
 			}
 		});
 
+		calc.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent event){
+				
+			}
+		});
 	}
 
 }
