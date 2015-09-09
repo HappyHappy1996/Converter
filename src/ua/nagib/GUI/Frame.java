@@ -8,6 +8,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+import ua.nagib.calc.Calculator;
+
 public class Frame extends JFrame {
 
 	private JButton swap = new JButton("Swap");
@@ -20,9 +22,15 @@ public class Frame extends JFrame {
 	private JTextField firstField = new JTextField();
 	private JTextField secondField = new JTextField();
 	
+	private Calculator calculator = Calculator.getInstance();
+	
 
 	public JTextField getFirstField() {
 		return firstField;
+	}
+	
+	public JTextField getSecondField() {
+		return secondField;
 	}
 
 
@@ -52,12 +60,12 @@ public class Frame extends JFrame {
 
 		calc.setBounds(140, 150, 115, 25);
 
-		firstData.addItem("Hryvnias");
-		firstData.addItem("Dollars");
-		firstData.addItem("Tugrik");
-		secondData.addItem("Hryvnias");
-		secondData.addItem("Dollars");
-		secondData.addItem("Tugrik");
+		firstData.addItem(calculator.getGrzywna().toString());
+		firstData.addItem(calculator.getDollar().toString());
+		firstData.addItem(calculator.getEuro().toString());
+		secondData.addItem(calculator.getGrzywna().toString());
+		secondData.addItem(calculator.getDollar().toString());
+		secondData.addItem(calculator.getEuro().toString());
 
 		// fill comboBoxes
 
