@@ -1,6 +1,5 @@
 package ua.nagib.GUI;
 
-import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -11,15 +10,21 @@ import javax.swing.JTextField;
 
 public class Frame extends JFrame {
 
-	JButton swap = new JButton("Swap");
-	JButton calc = new JButton("Calcalute");
+	private JButton swap = new JButton("Swap");
+	private JButton calc = new JButton("Calcalute");
+	
+	private JComboBox<String> firstData = new JComboBox<String>();
+	private JComboBox<String> secondData = new JComboBox<String>();
+	private JComboBox<String> type = new JComboBox<String>();
 
-	JComboBox<String> firstData = new JComboBox<String>();
-	JComboBox<String> secondData = new JComboBox<String>();
-	JComboBox<String> type = new JComboBox<String>();
+	private JTextField firstField = new JTextField();
+	private JTextField secondField = new JTextField();
+	
 
-	JTextField firstField = new JTextField();
-	JTextField secondField = new JTextField();
+	public JTextField getFirstField() {
+		return firstField;
+	}
+
 
 	public Frame() {
 
@@ -47,30 +52,31 @@ public class Frame extends JFrame {
 
 		calc.setBounds(140, 150, 115, 25);
 
-		firstData.addItem("Gryvnias");
+		firstData.addItem("Hryvnias");
 		firstData.addItem("Dollars");
 		firstData.addItem("Tugrik");
-		secondData.addItem("Gryvnias");
+		secondData.addItem("Hryvnias");
 		secondData.addItem("Dollars");
 		secondData.addItem("Tugrik");
 
 		// fill comboBoxes
 
-		swap.addMouseListener(new MouseAdapter(){
+		swap.addMouseListener(new MouseAdapter() {
 			int tempFirst;
 			int tempSecond;
-			public void mouseClicked(MouseEvent event){
+
+			public void mouseClicked(MouseEvent event) {
 
 				tempFirst = firstData.getSelectedIndex();
 				tempSecond = secondData.getSelectedIndex();
-				
+
 				firstData.setSelectedIndex(tempSecond);
 				secondData.setSelectedIndex(tempFirst);
 			}
 		});
 
-		calc.addMouseListener(new MouseAdapter(){
-			public void mouseClicked(MouseEvent event){
+		calc.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent event) {
 				
 			}
 		});
