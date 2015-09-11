@@ -12,6 +12,8 @@ import ua.nagib.calc.Calculator;
 
 public class Frame extends JFrame {
 
+	private static Frame frame = new Frame();
+	
 	private JButton swap = new JButton("Swap");
 	private JButton calc = new JButton("Calcalute");
 	
@@ -45,7 +47,7 @@ public class Frame extends JFrame {
 
 		add(firstData);
 		add(secondData);
-		// window.add(type);
+		// frame.window.add(type);
 		add(swap);
 		add(calc);
 		add(firstField);
@@ -56,6 +58,7 @@ public class Frame extends JFrame {
 		swap.setBounds(160, 100, 80, 25);
 
 		firstField.setBounds(25, 25, 125, 25);
+		secondField.setEditable(false);
 		secondField.setBounds(250, 25, 125, 25);
 
 		calc.setBounds(140, 150, 115, 25);
@@ -85,7 +88,8 @@ public class Frame extends JFrame {
 
 		calc.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent event) {
-				
+				double result = calculator.convert((String)firstData.getSelectedItem(), (String)secondData.getSelectedItem(), frame);
+				secondField.setText(String.valueOf(result));
 			}
 		});
 	}
