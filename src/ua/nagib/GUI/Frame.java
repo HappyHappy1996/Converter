@@ -85,11 +85,12 @@ public class Frame extends JFrame {
 
 		calc.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent event) {
-				int last;
-				String result = String.valueOf(calculator.convert((String) firstData.getSelectedItem(),
+				String result = String.valueOf(calculator.convert(
+						(String) firstData.getSelectedItem(),
 						(String) secondData.getSelectedItem(), Frame.this));
-				
-				secondField.setText(result.substring(0,result.indexOf('.') + 4));
+				int index = result.length() - result.lastIndexOf('.');
+				index = index > 4 ? 4 : index;
+				secondField.setText(result.substring(0, result.indexOf('.') + index));
 			}
 
 		});
