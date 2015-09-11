@@ -49,28 +49,34 @@ public class Calculator {
 		switch (from) {
 		case "Dollar":
 			fromCurrency = getDollar();
+			break;
 		case "Grzywna":
 			fromCurrency = getGrzywna();
+			break;
 		case "Euro":
 			fromCurrency = getEuro();
+			break;
 		}
 		
 		switch (to) {
 		case "Dollar":
 			toCurrency = getDollar();
+			break;
 		case "Grzywna":
 			toCurrency = getGrzywna();
+			break;
 		case "Euro":
 			toCurrency = getEuro();
+			break;
 		}
 		
 		try {
-			value = Double.valueOf(frame.getFirstField().getText());
+			value = Double.parseDouble(frame.getFirstField().getText());
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "Invalid data!");
 			return 0;
 		}
-		double result = fromCurrency.getPrice() * value * toCurrency.getPrice();
+		double result = fromCurrency.getPrice() * value / toCurrency.getPrice();
 		return result;
 	}
 }
