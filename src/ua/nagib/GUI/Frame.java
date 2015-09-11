@@ -6,33 +6,32 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import ua.nagib.calc.Calculator;
 
 public class Frame extends JFrame {
-		
+
 	private JButton swap = new JButton("Swap");
 	private JButton calc = new JButton("Calcalute");
-	
+
 	private JComboBox<String> firstData = new JComboBox<String>();
 	private JComboBox<String> secondData = new JComboBox<String>();
 	private JComboBox<String> type = new JComboBox<String>();
 
 	private JTextField firstField = new JTextField();
 	private JTextField secondField = new JTextField();
-	
+
 	private Calculator calculator = Calculator.getInstance();
-	
 
 	public JTextField getFirstField() {
 		return firstField;
 	}
-	
+
 	public JTextField getSecondField() {
 		return secondField;
 	}
-
 
 	public Frame() {
 
@@ -56,8 +55,8 @@ public class Frame extends JFrame {
 		swap.setBounds(160, 100, 80, 25);
 
 		firstField.setBounds(25, 25, 125, 25);
-		secondField.setEditable(false);
 		secondField.setBounds(250, 25, 125, 25);
+		secondField.setEditable(false);
 
 		calc.setBounds(140, 150, 115, 25);
 
@@ -86,9 +85,13 @@ public class Frame extends JFrame {
 
 		calc.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent event) {
-				double result = calculator.convert((String)firstData.getSelectedItem(), (String)secondData.getSelectedItem(), Frame.this );
-				secondField.setText(String.valueOf(result));
+				int last;
+				String result = String.valueOf(calculator.convert((String) firstData.getSelectedItem(),
+						(String) secondData.getSelectedItem(), Frame.this));
+				
+				secondField.setText(result.substring(0,result.indexOf('.') + 4));
 			}
+
 		});
 	}
 
