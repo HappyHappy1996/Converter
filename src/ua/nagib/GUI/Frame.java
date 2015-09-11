@@ -11,9 +11,7 @@ import javax.swing.JTextField;
 import ua.nagib.calc.Calculator;
 
 public class Frame extends JFrame {
-
-	private static Frame frame = new Frame();
-	
+		
 	private JButton swap = new JButton("Swap");
 	private JButton calc = new JButton("Calcalute");
 	
@@ -88,7 +86,7 @@ public class Frame extends JFrame {
 
 		calc.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent event) {
-				double result = calculator.convert((String)firstData.getSelectedItem(), (String)secondData.getSelectedItem(), frame);
+				double result = calculator.convert((String)firstData.getSelectedItem(), (String)secondData.getSelectedItem(), Frame.this );
 				secondField.setText(String.valueOf(result));
 			}
 		});
