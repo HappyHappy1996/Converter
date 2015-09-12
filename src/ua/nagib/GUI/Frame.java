@@ -2,11 +2,11 @@ package ua.nagib.GUI;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import ua.nagib.calc.Calculator;
@@ -23,7 +23,7 @@ public class Frame extends JFrame {
 	private JTextField firstField = new JTextField();
 	private JTextField secondField = new JTextField();
 
-	private Calculator calculator = Calculator.getInstance();
+	private Calculator calculator;
 
 	public JTextField getFirstField() {
 		return firstField;
@@ -33,7 +33,7 @@ public class Frame extends JFrame {
 		return secondField;
 	}
 
-	public Frame() {
+	public Frame() throws IOException {
 
 		setTitle("Converter");
 		setBounds(100, 100, 400, 250);
@@ -59,7 +59,8 @@ public class Frame extends JFrame {
 		secondField.setEditable(false);
 
 		calc.setBounds(140, 150, 115, 25);
-
+		
+		calculator = Calculator.getInstance();
 		firstData.addItem(calculator.getGrzywna().toString());
 		firstData.addItem(calculator.getDollar().toString());
 		firstData.addItem(calculator.getEuro().toString());

@@ -1,5 +1,7 @@
 package ua.nagib.calc;
 
+import java.io.IOException;
+
 import javax.swing.JOptionPane;
 
 import ua.nagib.GUI.Frame;
@@ -27,13 +29,13 @@ public class Calculator {
 		return euro;
 	}
 
-	private Calculator() {
+	private Calculator() throws IOException {
 		dollar = new Dollar();
 		grzywna = new Grzywna();
 		euro = new Euro();
 	}
 
-	public static synchronized Calculator getInstance() {
+	public static synchronized Calculator getInstance() throws IOException {
 		if (instance == null) {
 			instance = new Calculator();
 		}

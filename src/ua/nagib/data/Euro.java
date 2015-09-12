@@ -1,9 +1,11 @@
 package ua.nagib.data;
 
+import java.io.IOException;
+
 public class Euro extends Currency {
 
-	public Euro() {
-		price = 1.1196;
+	public Euro() throws IOException {
+		rate = readRate(toString());
 	}
 	
 	public String toString() {

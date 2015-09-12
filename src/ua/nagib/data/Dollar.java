@@ -1,9 +1,11 @@
 package ua.nagib.data;
 
+import java.io.IOException;
+
 public class Dollar extends Currency {
 
-	public Dollar() {
-		price = 1.0;
+	public Dollar() throws IOException {
+		rate = readRate(toString());
 	}
 	
 	public String toString() {
