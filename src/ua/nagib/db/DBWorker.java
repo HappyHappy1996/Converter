@@ -25,7 +25,6 @@ public class DBWorker {
    DriverManager.registerDriver(driver);
    System.out.println("3");
    connection = DriverManager.getConnection(URL, USER, PASSWORD);
-   System.out.println("4");
   } catch (SQLException e) {
    connection = null;
    System.err.println("Couldn't get connection");
