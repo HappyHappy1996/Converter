@@ -1,5 +1,7 @@
 package ua.nagib.GUI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -19,6 +21,7 @@ import ua.nagib.db.DBWorker;
 public class ConvertFrame extends JFrame {
 
 	private JButton swap = new JButton("Swap");
+	private JButton edit = new JButton("Edit");
 
 	private JComboBox<String> firstData = new JComboBox<String>();
 	private JComboBox<String> secondData = new JComboBox<String>();
@@ -38,7 +41,7 @@ public class ConvertFrame extends JFrame {
 		return secondField;
 	}
 
-	public ConvertFrame() throws IOException, SQLException {
+	public ConvertFrame(boolean isAdmin) throws IOException, SQLException {
 
 		setTitle("Converter");
 		setBounds(100, 100, 400, 250);
@@ -53,6 +56,15 @@ public class ConvertFrame extends JFrame {
 		add(swap);
 		add(firstField);
 		add(secondField);
+		if (isAdmin) {
+			add(edit);
+		}
+
+		initializeElements();
+		initializeListeners();
+	}
+
+	private void initializeElements() throws SQLException, IOException {
 
 		firstData.setBounds(25, 100, 125, 25);
 		secondData.setBounds(250, 100, 125, 25);
@@ -61,19 +73,21 @@ public class ConvertFrame extends JFrame {
 		firstField.setBounds(25, 25, 125, 25);
 		secondField.setBounds(250, 25, 125, 25);
 		secondField.setEditable(false);
-		
+
+		edit.setBounds(25, 150, 125, 30);
+
 		connection = DBWorker.getInstance().getConnection();//
 		calculator = Calculator.getInstance(connection);//
-		
+
 		firstData.addItem(calculator.getGrzywna().toString());
 		firstData.addItem(calculator.getDollar().toString());
 		firstData.addItem(calculator.getEuro().toString());
 		secondData.addItem(calculator.getGrzywna().toString());
 		secondData.addItem(calculator.getDollar().toString());
 		secondData.addItem(calculator.getEuro().toString());
+	}
 
-		// fill comboBoxes
-
+	private void initializeListeners() {
 		firstField.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent event) {
 				if (firstField.getText().length() == 0) {
@@ -85,6 +99,24 @@ public class ConvertFrame extends JFrame {
 					calc();
 				}
 			}
+		});
+
+		firstData.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// calc();
+			}
+
+		});
+
+		secondData.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// calc();
+			}
+
 		});
 
 		swap.addMouseListener(new MouseAdapter() {
@@ -100,7 +132,12 @@ public class ConvertFrame extends JFrame {
 				firstData.setSelectedIndex(tempSecond);
 				secondData.setSelectedIndex(tempFirst);
 
+				firstField.setText(secondField.getText());
+
+				System.out.println(secondField.getText());
+
 				calc();
+				System.out.println("After calc: " + secondField.getText());
 			}
 		});
 	}
