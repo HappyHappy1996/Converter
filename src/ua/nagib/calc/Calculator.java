@@ -1,10 +1,12 @@
 package ua.nagib.calc;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import ua.nagib.GUI.Frame;
+import ua.nagib.GUI.ConvertFrame;
 import ua.nagib.data.Currency;
 import ua.nagib.data.Dollar;
 import ua.nagib.data.Euro;
@@ -35,19 +37,29 @@ public class Calculator {
 		euro = new Euro();
 	}
 
-	public static synchronized Calculator getInstance() throws IOException {
+	private Calculator(Connection connection) throws SQLException {
+		dollar = new Dollar(connection);
+		grzywna = new Grzywna(connection);
+		euro = new Euro(connection);
+	}
+
+	public static synchronized Calculator getInstance(Connection connection) throws IOException, SQLException {
 		if (instance == null) {
-			instance = new Calculator();
+			if (connection != null) {
+				instance = new Calculator(connection);
+			} else {
+				instance = new Calculator();
+			}
 		}
 		return instance;
 	}
 
-	public double convert(String from, String to, Frame frame) {
+	public double convert(String from, String to, ConvertFrame frame) {
 
 		double value = 0;
 		Currency fromCurrency = null;
 		Currency toCurrency = null;
-		
+
 		switch (from) {
 		case "Dollar":
 			fromCurrency = getDollar();
@@ -59,7 +71,7 @@ public class Calculator {
 			fromCurrency = getEuro();
 			break;
 		}
-		
+
 		switch (to) {
 		case "Dollar":
 			toCurrency = getDollar();
@@ -71,7 +83,7 @@ public class Calculator {
 			toCurrency = getEuro();
 			break;
 		}
-		
+
 		try {
 			value = Double.parseDouble(frame.getFirstField().getText());
 		} catch (NumberFormatException e) {

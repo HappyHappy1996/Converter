@@ -1,8 +1,12 @@
 package ua.nagib.GUI;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,11 +14,11 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import ua.nagib.calc.Calculator;
+import ua.nagib.db.DBWorker;
 
-public class Frame extends JFrame {
+public class ConvertFrame extends JFrame {
 
 	private JButton swap = new JButton("Swap");
-	private JButton calc = new JButton("Calcalute");
 
 	private JComboBox<String> firstData = new JComboBox<String>();
 	private JComboBox<String> secondData = new JComboBox<String>();
@@ -24,6 +28,7 @@ public class Frame extends JFrame {
 	private JTextField secondField = new JTextField();
 
 	private Calculator calculator;
+	private Connection connection;
 
 	public JTextField getFirstField() {
 		return firstField;
@@ -33,7 +38,7 @@ public class Frame extends JFrame {
 		return secondField;
 	}
 
-	public Frame() throws IOException {
+	public ConvertFrame() throws IOException, SQLException {
 
 		setTitle("Converter");
 		setBounds(100, 100, 400, 250);
@@ -44,9 +49,8 @@ public class Frame extends JFrame {
 
 		add(firstData);
 		add(secondData);
-		// frame.window.add(type);
+		// add(type);
 		add(swap);
-		add(calc);
 		add(firstField);
 		add(secondField);
 
@@ -57,10 +61,10 @@ public class Frame extends JFrame {
 		firstField.setBounds(25, 25, 125, 25);
 		secondField.setBounds(250, 25, 125, 25);
 		secondField.setEditable(false);
-
-		calc.setBounds(140, 150, 115, 25);
 		
-		calculator = Calculator.getInstance();
+		connection = DBWorker.getInstance().getConnection();//
+		calculator = Calculator.getInstance(connection);//
+		
 		firstData.addItem(calculator.getGrzywna().toString());
 		firstData.addItem(calculator.getDollar().toString());
 		firstData.addItem(calculator.getEuro().toString());
@@ -70,7 +74,21 @@ public class Frame extends JFrame {
 
 		// fill comboBoxes
 
+		firstField.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent event) {
+				if (firstField.getText().length() == 0) {
+					firstField.setText("");
+					secondField.setText("0.0");
+					return;
+				}
+				if (event.getKeyCode() != 0) {
+					calc();
+				}
+			}
+		});
+
 		swap.addMouseListener(new MouseAdapter() {
+
 			int tempFirst;
 			int tempSecond;
 
@@ -81,20 +99,18 @@ public class Frame extends JFrame {
 
 				firstData.setSelectedIndex(tempSecond);
 				secondData.setSelectedIndex(tempFirst);
+
+				calc();
 			}
 		});
+	}
 
-		calc.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent event) {
-				String result = String.valueOf(calculator.convert(
-						(String) firstData.getSelectedItem(),
-						(String) secondData.getSelectedItem(), Frame.this));
-				int index = result.length() - result.lastIndexOf('.');
-				index = index > 4 ? 4 : index;
-				secondField.setText(result.substring(0, result.indexOf('.') + index));
-			}
-
-		});
+	private void calc() {
+		String result = String.valueOf(calculator.convert((String) firstData.getSelectedItem(),
+				(String) secondData.getSelectedItem(), ConvertFrame.this));
+		int index = result.length() - result.lastIndexOf('.');
+		index = index > 4 ? 4 : index;
+		secondField.setText(result.substring(0, result.indexOf('.') + index));
 	}
 
 }
