@@ -6,4 +6,8 @@ public class Zukerwatte {
 		System.out.println("Oliver");
 	}
 	
+	public static void saySmthOther() {
+		System.out.println("MOFO");
+	}
+	
 }
