@@ -18,13 +18,9 @@ public class DBWorker {
 
 	private DBWorker() throws SQLException {
 		try {
-			System.out.println("1");
 			Driver driver = new FabricMySQLDriver();
-			System.out.println("2");
 			DriverManager.registerDriver(driver);
-			System.out.println("3");
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			System.out.println("4");
 		} catch (SQLException e) {
 			connection = null;
 			System.err.println("Couldn't get connection");
