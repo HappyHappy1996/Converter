@@ -67,6 +67,7 @@ public class LoginFrame extends JFrame {
 				}
 				if (isAdmin.isSelected()) {
 					EditFrame.getInstance();
+					EditFrame.getInstance().setVisible(true);
 					LoginFrame.this.setVisible(false);
 				}
 			}
