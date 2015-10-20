@@ -3,7 +3,6 @@ package ua.nagib.GUI;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -45,9 +44,8 @@ public class EditFrame extends JFrame {
 		add(currency);
 
 		try {
-			calculator = Calculator.getInstance(null);
-		} catch (IOException | SQLException e) {
-			// TODO Auto-generated catch block
+			calculator = Calculator.getInstance();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 

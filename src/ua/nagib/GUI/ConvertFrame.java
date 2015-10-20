@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,7 +21,7 @@ public class ConvertFrame extends JFrame {
 
 	private JComboBox<String> firstData = new JComboBox<String>();
 	private JComboBox<String> secondData = new JComboBox<String>();
-	private JComboBox<String> type = new JComboBox<String>();
+//	private JComboBox<String> type = new JComboBox<String>();
 
 	private JTextField firstField = new JTextField();
 	private JTextField secondField = new JTextField();
@@ -37,7 +36,7 @@ public class ConvertFrame extends JFrame {
 		return secondField;
 	}
 
-	public ConvertFrame() throws IOException, SQLException {
+	public ConvertFrame() throws IOException {
 
 		setTitle("Converter");
 		setBounds(100, 100, 400, 220);
@@ -57,7 +56,7 @@ public class ConvertFrame extends JFrame {
 		initializeListeners();
 	}
 
-	private void initializeElements() throws SQLException, IOException {
+	private void initializeElements() throws IOException {
 
 		firstData.setBounds(25, 100, 125, 25);
 		secondData.setBounds(250, 100, 125, 25);
@@ -67,8 +66,8 @@ public class ConvertFrame extends JFrame {
 		secondField.setBounds(250, 25, 125, 25);
 		secondField.setEditable(false);
 
-		calculator = Calculator.getInstance(null);//
-
+		calculator = Calculator.getInstance();
+		
 		firstData.addItem(calculator.getGrzywna().toString());
 		firstData.addItem(calculator.getDollar().toString());
 		firstData.addItem(calculator.getEuro().toString());

@@ -1,8 +1,6 @@
 package ua.nagib.calc;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
@@ -37,19 +35,9 @@ public class Calculator {
 		euro = new Euro();
 	}
 
-	private Calculator(Connection connection) throws SQLException {
-		dollar = new Dollar(connection);
-		grzywna = new Grzywna(connection);
-		euro = new Euro(connection);
-	}
-
-	public static synchronized Calculator getInstance(Connection connection) throws IOException, SQLException {
+	public static synchronized Calculator getInstance() throws IOException {
 		if (instance == null) {
-			if (connection != null) {
-				instance = new Calculator(connection);
-			} else {
-				instance = new Calculator();
-			}
+			instance = new Calculator();
 		}
 		return instance;
 	}

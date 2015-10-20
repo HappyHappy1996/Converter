@@ -5,13 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class LoginFrame extends JFrame {
@@ -63,8 +61,7 @@ public class LoginFrame extends JFrame {
 					try {
 						new ConvertFrame();
 						LoginFrame.this.setVisible(false);
-					} catch (IOException | SQLException e) {
-						// TODO Auto-generated catch block
+					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}
