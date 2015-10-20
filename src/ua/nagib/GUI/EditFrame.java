@@ -21,12 +21,12 @@ public class EditFrame extends JFrame {
 
 	private JLabel valueLabel = new JLabel("Enter new value:");
 	private JLabel type = new JLabel("Select type of currency:");
-	
+
 	private JComboBox<String> currency = new JComboBox<String>();
-	
+
 	private JTextField value = new JTextField();
-	
-	private Calculator calculator; 
+
+	private Calculator calculator;
 
 	private static EditFrame instance;
 
@@ -44,8 +44,13 @@ public class EditFrame extends JFrame {
 		add(type);
 		add(value);
 		add(currency);
-		
-		// calculator = Calculator.getInstance();
+
+		try {
+			calculator = Calculator.getInstance(null);
+		} catch (IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		valueLabel.setBounds(10, 20, 150, 25);
 		value.setBounds(110, 20, 70, 25);
@@ -53,11 +58,11 @@ public class EditFrame extends JFrame {
 		currency.setBounds(150, 55, 125, 25);
 		change.setBounds(50, 120, 100, 25);
 		back.setBounds(155, 120, 80, 25);
-		
-		/*currency.addItem(calculator.getGrzywna().toString());
+
+		currency.addItem(calculator.getGrzywna().toString());
 		currency.addItem(calculator.getDollar().toString());
-		currency.addItem(calculator.getEuro().toString());*/
-		
+		currency.addItem(calculator.getEuro().toString());
+
 		initializeListeners();
 
 	}
@@ -72,12 +77,12 @@ public class EditFrame extends JFrame {
 	private void initializeListeners() {
 		change.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent event) {
-				
+
 			}
 		});
-		
-		back.addMouseListener(new MouseAdapter(){
-			public void mouseClicked(MouseEvent event){
+
+		back.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent event) {
 				EditFrame.this.setVisible(false);
 				LoginFrame.getInstance().setVisible(true);
 			}

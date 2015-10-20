@@ -69,14 +69,14 @@ public class ConvertFrame extends JFrame {
 		secondField.setBounds(250, 25, 125, 25);
 		secondField.setEditable(false);
 
-		/*calculator = Calculator.getInstance();//
+		calculator = Calculator.getInstance(null);//
 
 		firstData.addItem(calculator.getGrzywna().toString());
 		firstData.addItem(calculator.getDollar().toString());
 		firstData.addItem(calculator.getEuro().toString());
 		secondData.addItem(calculator.getGrzywna().toString());
 		secondData.addItem(calculator.getDollar().toString());
-		secondData.addItem(calculator.getEuro().toString());*/
+		secondData.addItem(calculator.getEuro().toString());
 	}
 
 	private void initializeListeners() {
