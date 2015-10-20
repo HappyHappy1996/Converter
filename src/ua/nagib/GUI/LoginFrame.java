@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class LoginFrame extends JFrame {
@@ -70,6 +69,7 @@ public class LoginFrame extends JFrame {
 				}
 				if (isAdmin.isSelected()) {
 					EditFrame.getInstance();
+					EditFrame.getInstance().setVisible(true);
 					LoginFrame.this.setVisible(false);
 				}
 			}
