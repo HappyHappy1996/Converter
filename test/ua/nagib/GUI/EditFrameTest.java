@@ -4,11 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class SignInTypeFrameTest {
+public class EditFrameTest {
 
 	@Test
 	public void testGetInstance() {
-		SignInTypeFrame.getInstance();
+		EditFrame.getInstance();
 	}
 
 }

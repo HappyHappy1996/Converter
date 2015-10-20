@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -16,7 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import ua.nagib.calc.Calculator;
-import ua.nagib.db.DBWorker;
 
 public class ConvertFrame extends JFrame {
 
