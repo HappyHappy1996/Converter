@@ -105,7 +105,7 @@ public class ConvertFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				 calc();
+				calc();
 			}
 
 		});
@@ -114,7 +114,7 @@ public class ConvertFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				 calc();
+				calc();
 			}
 
 		});
@@ -131,8 +131,6 @@ public class ConvertFrame extends JFrame {
 
 				firstData.setSelectedIndex(tempSecond);
 				secondData.setSelectedIndex(tempFirst);
-
-				firstField.setText(secondField.getText());
 
 				calc();
 			}
