@@ -11,7 +11,7 @@ public class ConvertFrameTest {
 
 	@Test
 	public void test() throws Exception {
-		new ConvertFrame(false);
+		new ConvertFrame();
 	}
 
 }

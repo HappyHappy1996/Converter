@@ -21,7 +21,6 @@ import ua.nagib.db.DBWorker;
 public class ConvertFrame extends JFrame {
 
 	private JButton swap = new JButton("Swap");
-	private JButton edit = new JButton("Edit");
 
 	private JComboBox<String> firstData = new JComboBox<String>();
 	private JComboBox<String> secondData = new JComboBox<String>();
@@ -31,7 +30,6 @@ public class ConvertFrame extends JFrame {
 	private JTextField secondField = new JTextField();
 
 	private Calculator calculator;
-	private Connection connection;
 
 	public JTextField getFirstField() {
 		return firstField;
@@ -41,10 +39,10 @@ public class ConvertFrame extends JFrame {
 		return secondField;
 	}
 
-	public ConvertFrame(boolean isAdmin) throws IOException, SQLException {
+	public ConvertFrame() throws IOException, SQLException {
 
 		setTitle("Converter");
-		setBounds(100, 100, 400, 250);
+		setBounds(100, 100, 400, 220);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(null);
@@ -56,9 +54,6 @@ public class ConvertFrame extends JFrame {
 		add(swap);
 		add(firstField);
 		add(secondField);
-		if (isAdmin) {
-			add(edit);
-		}
 
 		initializeElements();
 		initializeListeners();
@@ -74,17 +69,14 @@ public class ConvertFrame extends JFrame {
 		secondField.setBounds(250, 25, 125, 25);
 		secondField.setEditable(false);
 
-		edit.setBounds(25, 150, 125, 30);
-
-		connection = DBWorker.getInstance().getConnection();//
-		calculator = Calculator.getInstance(connection);//
+		/*calculator = Calculator.getInstance();//
 
 		firstData.addItem(calculator.getGrzywna().toString());
 		firstData.addItem(calculator.getDollar().toString());
 		firstData.addItem(calculator.getEuro().toString());
 		secondData.addItem(calculator.getGrzywna().toString());
 		secondData.addItem(calculator.getDollar().toString());
-		secondData.addItem(calculator.getEuro().toString());
+		secondData.addItem(calculator.getEuro().toString());*/
 	}
 
 	private void initializeListeners() {
