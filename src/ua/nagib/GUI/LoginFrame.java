@@ -45,10 +45,13 @@ public class LoginFrame extends JFrame {
 
 	private void initializeListeners() {
 		logIn.addMouseListener(new MouseAdapter() {
+			
+			private String correctPass = "qwer";
+			
 			public void mouseClicked(MouseEvent event) {
-				// check admin
 				try {
 					new ConvertFrame(true);
+					password.getText().compareTo(correctPass);
 				} catch (IOException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -62,6 +65,7 @@ public class LoginFrame extends JFrame {
 				SignInTypeFrame.getInstance().setVisible(true);
 			}
 		});
+		
 	}
 
 }
