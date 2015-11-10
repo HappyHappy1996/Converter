@@ -11,7 +11,5 @@ import ua.nagib.data.CurrencyTest;
 @RunWith(Suite.class)
 @SuiteClasses({ LauncherTest.class, CurrencyTest.class, EditFrameTest.class, ConvertFrameTest.class })
 public class AllTests {
-	
-	
 
 }
