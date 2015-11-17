@@ -3,6 +3,7 @@ package ua.nagib.GUI;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import ua.nagib.calc.Calculator;
+import ua.nagib.db.DBWorker;
 
 public class EditFrame extends JFrame {
 
@@ -27,8 +29,10 @@ public class EditFrame extends JFrame {
 	private Calculator calculator;
 
 	private static EditFrame instance;
+	
+	private DBWorker dbWorker;
 
-	public EditFrame() {
+	public EditFrame() throws SQLException, ReflectiveOperationException {
 		setTitle("Changes");
 		setBounds(100, 100, 290, 200);
 		setVisible(true);
@@ -48,6 +52,8 @@ public class EditFrame extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		dbWorker = DBWorker.getInstance();
 
 		valueLabel.setBounds(10, 20, 150, 25);
 		value.setBounds(110, 20, 70, 25);
@@ -66,7 +72,11 @@ public class EditFrame extends JFrame {
 
 	public static synchronized EditFrame getInstance() {
 		if (instance == null) {
-			instance = new EditFrame();
+			try {
+				instance = new EditFrame();
+			} catch (SQLException | ReflectiveOperationException e) {
+				e.printStackTrace();
+			}
 		}
 		return instance;
 	}
@@ -74,7 +84,11 @@ public class EditFrame extends JFrame {
 	private void initializeListeners() {
 		change.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent event) {
-
+				try {
+					dbWorker.updateCurrency(currency.getSelectedItem().toString(), Double.parseDouble(value.getText()));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 

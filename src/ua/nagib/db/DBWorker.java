@@ -55,14 +55,8 @@ public class DBWorker {
         System.out.println("db is dropped, all is ok");
         statement.close();
     }
-    
-    private void insertCurrency(String name, double rate) throws SQLException {
-    	statement = connection.createStatement();
-    	statement.execute("insert into " + TABLE_NAME + " values ('" + name + "', " + rate +")");
-    	statement.close();
-    }
-    
-    private double selectCurrencyRate(String currencyName) throws SQLException {
+        
+    public double selectCurrencyRate(String currencyName) throws SQLException {
 		try {
 			statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("select rate from " + TABLE_NAME + " where name = '" + currencyName + "'");
@@ -78,6 +72,18 @@ public class DBWorker {
 			throw e;
 		}
 	}
+    
+    public void updateCurrency(String name, double rate) throws SQLException {
+    	statement = connection.createStatement();
+    	statement.execute("update " + TABLE_NAME + " set rate = " + rate + " where name = '" + name +"'");
+    	statement.close();
+    }
+    
+    public void insertCurrency(String name, double rate) throws SQLException {
+    	statement = connection.createStatement();
+    	statement.execute("insert into " + TABLE_NAME + " values ('" + name + "', " + rate +")");
+    	statement.close();
+    }
    
 	private void shutdown() throws SQLException {
 		try {
@@ -98,18 +104,21 @@ public class DBWorker {
 
 	public static void main(String[] args) throws Exception {
 		DBWorker dbWorker = DBWorker.getInstance();
+		
 		System.out.println("1");
 		
-		dbWorker.createTable();
+//		dbWorker.createTable();
 		
 		System.out.println("2");
-		dbWorker.insertCurrency("Grzywna", 0.0434);
-		dbWorker.insertCurrency("Dollar", 1.0);
-		dbWorker.insertCurrency("Euro", 1.1);
+//		dbWorker.insertCurrency("Grzywna", 0.0434);
+//		dbWorker.insertCurrency("Dollar", 1.0);
+//		dbWorker.insertCurrency("Euro", 1.1);
 		System.out.println("3");
 		System.out.println(dbWorker.selectCurrencyRate("Euro"));
+		System.out.println(dbWorker.selectCurrencyRate("Dollar"));
 		System.out.println(dbWorker.selectCurrencyRate("Grzywna"));
 		System.out.println("4");
+		
 		
 //		dbWorker.dropTable();
 		
