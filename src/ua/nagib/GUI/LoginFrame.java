@@ -1,6 +1,5 @@
 package ua.nagib.GUI;
 
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -14,6 +13,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import ua.nagib.cryptographic.Cryptographer;
@@ -24,7 +24,9 @@ public class LoginFrame extends JFrame {
 
 	private JLabel pass = new JLabel("Password");
 
-	private JTextField password = new JTextField();
+//	private JTextField password = new JTextField();
+
+	private JPasswordField password = new JPasswordField();
 
 	private JButton logIn = new JButton("LogIn");
 
@@ -64,17 +66,19 @@ public class LoginFrame extends JFrame {
 		logIn.addMouseListener(new MouseAdapter() {
 
 			private final String correctPassHash = "1aeb9e8495662b005adab4e86490f76f";
-			private final String ENCODING = "MD5";
+			private final String ALGORITHM = "MD5";
 
 			public void mouseClicked(MouseEvent event) {
 
 				if (isAdmin.isSelected()) {
 					try {
-						if (Cryptographer.hash(password.getText(), ENCODING)
+						if (Cryptographer.hash(password.getText(), ALGORITHM)
 								.equals(correctPassHash)) {
+							password.setText("");
 							EditFrame.getInstance().setVisible(true);
 							LoginFrame.this.setVisible(false);
 						} else {
+							password.setText("");
 							JOptionPane.showMessageDialog(null,
 									"Password is wrong!");
 						}
@@ -98,9 +102,11 @@ public class LoginFrame extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				if (isAdmin.isSelected()) {
 					password.setEditable(true);
+					
 				} else {
 					password.setEditable(false);
 				}
+				password.setText("");
 			}
 		});
 

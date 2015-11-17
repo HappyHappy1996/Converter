@@ -28,10 +28,5 @@ public class Cryptographer {
 
 		return md5Hex;
 	}
-	
-	public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-//		System.out.println(Cryptographer.hash("devcolibri", "MD5"));
-		System.out.println(Cryptographer.hash("", "MD5"));
-	}
 
 }
