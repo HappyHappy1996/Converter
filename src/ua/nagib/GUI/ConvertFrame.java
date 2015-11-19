@@ -6,11 +6,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import ua.nagib.calc.Calculator;
@@ -21,8 +22,6 @@ public class ConvertFrame extends JFrame {
 
 	private JComboBox<String> firstData = new JComboBox<String>();
 	private JComboBox<String> secondData = new JComboBox<String>();
-//	private JComboBox<String> type = new JComboBox<String>();
-
 	private JTextField firstField = new JTextField();
 	private JTextField secondField = new JTextField();
 
@@ -36,7 +35,7 @@ public class ConvertFrame extends JFrame {
 		return secondField;
 	}
 
-	public ConvertFrame() throws IOException {
+	public ConvertFrame() {
 
 		setTitle("Converter");
 		setBounds(100, 100, 400, 220);
@@ -47,7 +46,6 @@ public class ConvertFrame extends JFrame {
 
 		add(firstData);
 		add(secondData);
-		// add(type);
 		add(swap);
 		add(firstField);
 		add(secondField);
@@ -56,7 +54,7 @@ public class ConvertFrame extends JFrame {
 		initializeListeners();
 	}
 
-	private void initializeElements() throws IOException {
+	private void initializeElements() {
 
 		firstData.setBounds(25, 100, 125, 25);
 		secondData.setBounds(250, 100, 125, 25);
@@ -66,7 +64,12 @@ public class ConvertFrame extends JFrame {
 		secondField.setBounds(250, 25, 125, 25);
 		secondField.setEditable(false);
 
-		calculator = Calculator.getInstance();
+		try {
+			calculator = Calculator.getInstance();
+		} catch (SQLException | ReflectiveOperationException e) {
+			JOptionPane.showMessageDialog(null, "Could not select currencies rates!");
+			e.printStackTrace();
+		}
 		
 		firstData.addItem(calculator.getGrzywna().toString());
 		firstData.addItem(calculator.getDollar().toString());
@@ -127,8 +130,14 @@ public class ConvertFrame extends JFrame {
 	}
 
 	private void calc() {
+		double value = 0;
+		try {
+			value = Double.parseDouble(getFirstField().getText());
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Invalid data!");
+		}
 		String result = String.valueOf(calculator.convert((String) firstData.getSelectedItem(),
-				(String) secondData.getSelectedItem(), ConvertFrame.this));
+				(String) secondData.getSelectedItem(), value));
 		int index = result.length() - result.lastIndexOf('.');
 		index = index > 4 ? 4 : index;
 		secondField.setText(result.substring(0, result.indexOf('.') + index));

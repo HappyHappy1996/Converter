@@ -1,10 +1,10 @@
 package ua.nagib.data;
 
-import java.io.IOException;
+import java.sql.SQLException;
 
 public class Dollar extends Currency {
 
-	public Dollar() throws IOException {
+	public Dollar() throws SQLException, ReflectiveOperationException {
 		super();
 	}
 

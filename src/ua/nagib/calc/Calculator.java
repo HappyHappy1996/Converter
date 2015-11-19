@@ -1,8 +1,6 @@
 package ua.nagib.calc;
 
-import java.io.IOException;
-
-import javax.swing.JOptionPane;
+import java.sql.SQLException;
 
 import ua.nagib.GUI.ConvertFrame;
 import ua.nagib.data.Currency;
@@ -29,22 +27,21 @@ public class Calculator {
 		return euro;
 	}
 
-	private Calculator() throws IOException {
+	private Calculator() throws SQLException, ReflectiveOperationException {
 		dollar = new Dollar();
 		grzywna = new Grzywna();
 		euro = new Euro();
 	}
 
-	public static synchronized Calculator getInstance() throws IOException {
+	public static synchronized Calculator getInstance() throws SQLException, ReflectiveOperationException {
 		if (instance == null) {
 			instance = new Calculator();
 		}
 		return instance;
 	}
 
-	public double convert(String from, String to, ConvertFrame frame) {
+	public double convert(String from, String to, double value) {
 
-		double value = 0;
 		Currency fromCurrency = null;
 		Currency toCurrency = null;
 
@@ -70,13 +67,6 @@ public class Calculator {
 		case "Euro":
 			toCurrency = getEuro();
 			break;
-		}
-
-		try {
-			value = Double.parseDouble(frame.getFirstField().getText());
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Invalid data!");
-			return 0;
 		}
 		double result = fromCurrency.getPrice() * value / toCurrency.getPrice();
 		return result;

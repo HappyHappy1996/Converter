@@ -1,13 +1,13 @@
 package ua.nagib.GUI;
 
-import static org.junit.Assert.*;
+import java.sql.SQLException;
 
 import org.junit.Test;
 
 public class EditFrameTest {
 
 	@Test
-	public void testGetInstance() {
+	public void testGetInstance() throws SQLException, ReflectiveOperationException {
 		EditFrame.getInstance();
 	}
 

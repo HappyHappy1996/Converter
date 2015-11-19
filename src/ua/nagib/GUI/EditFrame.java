@@ -2,7 +2,6 @@ package ua.nagib.GUI;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -16,7 +15,7 @@ import ua.nagib.db.DBWorker;
 
 public class EditFrame extends JFrame {
 
-	private JButton change = new JButton("Change");
+	private JButton change = new JButton("Edit");
 	private JButton back = new JButton("Back");
 
 	private JLabel valueLabel = new JLabel("Enter new value:");
@@ -33,7 +32,7 @@ public class EditFrame extends JFrame {
 	private DBWorker dbWorker;
 
 	public EditFrame() throws SQLException, ReflectiveOperationException {
-		setTitle("Changes");
+		setTitle("Edit rates");
 		setBounds(100, 100, 290, 200);
 		setVisible(true);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -47,11 +46,7 @@ public class EditFrame extends JFrame {
 		add(value);
 		add(currency);
 
-		try {
-			calculator = Calculator.getInstance();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		calculator = Calculator.getInstance();
 		
 		dbWorker = DBWorker.getInstance();
 
@@ -70,13 +65,9 @@ public class EditFrame extends JFrame {
 
 	}
 
-	public static synchronized EditFrame getInstance() {
+	public static synchronized EditFrame getInstance() throws SQLException, ReflectiveOperationException {
 		if (instance == null) {
-			try {
-				instance = new EditFrame();
-			} catch (SQLException | ReflectiveOperationException e) {
-				e.printStackTrace();
-			}
+			instance = new EditFrame();
 		}
 		return instance;
 	}

@@ -3,9 +3,12 @@ package ua.nagib.data;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
+
+import ua.nagib.db.DBWorker;
 
 public abstract class Currency {
 
@@ -13,8 +16,8 @@ public abstract class Currency {
 
 	private static final String FILE_NAME = "rateOfExchange.txt";
 
-	public Currency() throws IOException {
-		rate = readRate(toString());
+	public Currency() throws SQLException, ReflectiveOperationException {
+		rate = selectRate(toString());
 	}
 
 	public double getPrice() {
@@ -42,4 +45,10 @@ public abstract class Currency {
 		scanner.close();
 		throw new IOException("There are no rate for " + toString() + "in file");
 	}
+
+	protected double selectRate(String currencyName) throws SQLException, ReflectiveOperationException {
+		DBWorker dbWorker = DBWorker.getInstance();
+		return dbWorker.selectCurrencyRate(currencyName);
+	}
+	
 }

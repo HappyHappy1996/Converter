@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -14,7 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 import ua.nagib.cryptographic.Cryptographer;
 
@@ -24,7 +23,7 @@ public class LoginFrame extends JFrame {
 
 	private JLabel pass = new JLabel("Password");
 
-//	private JTextField password = new JTextField();
+	// private JTextField password = new JTextField();
 
 	private JPasswordField password = new JPasswordField();
 
@@ -72,28 +71,31 @@ public class LoginFrame extends JFrame {
 
 				if (isAdmin.isSelected()) {
 					try {
-						if (Cryptographer.hash(password.getText(), ALGORITHM)
-								.equals(correctPassHash)) {
+						if (Cryptographer.hash(
+								String.valueOf(password.getPassword()), ALGORITHM).
+								equals(correctPassHash)) {
 							password.setText("");
-							EditFrame.getInstance().setVisible(true);
+							try {
+								EditFrame.getInstance().setVisible(true);
+							} catch (SQLException | ReflectiveOperationException e) {
+								JOptionPane.showMessageDialog(null, "Password is correct, but could not connect to DB");
+								e.printStackTrace();
+							}
 							LoginFrame.this.setVisible(false);
 						} else {
 							password.setText("");
 							JOptionPane.showMessageDialog(null,
 									"Password is wrong!");
 						}
-					} catch (UnsupportedEncodingException | NoSuchAlgorithmException e) { // + sql exc
+					} catch (UnsupportedEncodingException
+							| NoSuchAlgorithmException e) {
 						e.printStackTrace();
 					}
 				}
 
 				if (!isAdmin.isSelected()) {
-					try {
-						new ConvertFrame();
-						LoginFrame.this.setVisible(false);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					new ConvertFrame();
+					LoginFrame.this.setVisible(false);
 				}
 			}
 		});
@@ -102,7 +104,7 @@ public class LoginFrame extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				if (isAdmin.isSelected()) {
 					password.setEditable(true);
-					
+
 				} else {
 					password.setEditable(false);
 				}

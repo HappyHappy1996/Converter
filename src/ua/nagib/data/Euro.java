@@ -1,10 +1,10 @@
 package ua.nagib.data;
 
-import java.io.IOException;
+import java.sql.SQLException;
 
 public class Euro extends Currency {
 
-	public Euro() throws IOException {
+	public Euro() throws SQLException, ReflectiveOperationException {
 		super();
 	}
 

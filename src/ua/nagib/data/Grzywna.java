@@ -1,10 +1,10 @@
 package ua.nagib.data;
 
-import java.io.IOException;
+import java.sql.SQLException;
 
 public class Grzywna extends Currency {
 
-	public Grzywna() throws IOException {
+	public Grzywna() throws SQLException, ReflectiveOperationException {
 		super();
 	}
 
