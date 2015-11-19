@@ -102,22 +102,24 @@ public class DBWorker {
 
 	}
 
-	public static void main(String[] args) throws Exception {
+	private static void restore(String[] args) throws Exception {
 		DBWorker dbWorker = DBWorker.getInstance();
 		
+		/*
 		System.out.println("1");
-		
-//		dbWorker.createTable();
+		dbWorker.createTable();
 		
 		System.out.println("2");
-//		dbWorker.insertCurrency("Grzywna", 0.0434);
-//		dbWorker.insertCurrency("Dollar", 1.0);
-//		dbWorker.insertCurrency("Euro", 1.1);
+		dbWorker.insertCurrency("Grzywna", 0.0434);
+		dbWorker.insertCurrency("Dollar", 1.0);
+		dbWorker.insertCurrency("Euro", 1.1);
+		
 		System.out.println("3");
 		System.out.println(dbWorker.selectCurrencyRate("Euro"));
 		System.out.println(dbWorker.selectCurrencyRate("Dollar"));
 		System.out.println(dbWorker.selectCurrencyRate("Grzywna"));
 		System.out.println("4");
+		 */
 		
 		
 //		dbWorker.dropTable();

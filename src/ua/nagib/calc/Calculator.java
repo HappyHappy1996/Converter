@@ -2,7 +2,6 @@ package ua.nagib.calc;
 
 import java.sql.SQLException;
 
-import ua.nagib.GUI.ConvertFrame;
 import ua.nagib.data.Currency;
 import ua.nagib.data.Dollar;
 import ua.nagib.data.Euro;
