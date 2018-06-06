@@ -25,6 +25,7 @@ public class ConvertFrame extends JFrame {
 	private JTextField firstField = new JTextField();
 	private JTextField secondField = new JTextField();
 
+	/*Some new comments*/
 	private Calculator calculator;
 
 	public JTextField getFirstField() {
